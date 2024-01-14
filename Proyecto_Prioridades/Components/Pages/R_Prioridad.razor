@@ -1,0 +1,101 @@
+﻿@page "/Prioridad"
+@inject PrioridadesBLL _prioridadesBLL
+@rendermode InteractiveServer
+<PageTitle>Prioridad</PageTitle>
+<EditForm Model="_prioridad" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3>Registro de Tickets.</h3>
+            </div>
+            <div class=card-body>
+
+                @*Prioridad Id:*@
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>Prioridad Id:</label>
+                    <div class="input-group mb-3">
+                        <InputNumber @bind-Value="_prioridad.PrioridadId" class="form-control" aria-describedby="BotonBuscar" />
+                        <button @onclick="Buscar" class="bi bi-search" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                    </div>
+                    <p class="text-danger">@_mensaje2</p>
+                </div>
+
+                @*Descripcion*@
+                <div class="mb-3">
+                    <label class="form-label" for="Descripcion">Descripcion:</label>
+                    <InputText @bind-Value="_prioridad.Descripción" class="form-control" />
+                    <ValidationMessage For="@(() => _prioridad.Descripción)" />
+                </div>
+                <p class="text-danger">@_mensaje</p>
+
+                @*Dias compromiso*@
+                <div class="mb-3">
+                    <label class="form-label" for="SolicitadoPor">Dias compromiso:</label>
+                    <InputNumber @bind-Value="_prioridad.DiasCompromiso" class="form-control" />
+                    <ValidationMessage For="@(() => _prioridad.DiasCompromiso)" />
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
+                    <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
+                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    public Prioridades _prioridad = new Prioridades();
+    public string _mensaje = string.Empty;
+    public string _mensaje2 = string.Empty;
+
+    public async Task Buscar()
+    {
+        var encontrado = await _prioridadesBLL.FindAsync(_prioridad.PrioridadId);
+        if (encontrado != null)
+        {
+            _prioridad = encontrado;
+            _mensaje2 = string.Empty;
+
+        }
+        else
+        {
+
+            _mensaje2 = "No se encontró el id";
+
+        }
+    }
+
+    public void Save()
+    {
+        var guardo = _prioridadesBLL.Save(_prioridad);
+        if (guardo)
+        {
+            Nuevo();
+        }
+        else
+            _mensaje = "Ya existe una descripción igual.";
+    }
+
+    public void Nuevo()
+    {
+        _prioridad = new Prioridades();
+        _mensaje = string.Empty;
+        _mensaje2 = string.Empty;
+    }
+
+    public void Eliminar()
+    {
+        var eliminado = _prioridadesBLL.Delete(_prioridad.PrioridadId);
+        if (eliminado)
+        {
+            Nuevo();
+        }
+
+    }
+}
+

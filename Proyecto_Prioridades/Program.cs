@@ -11,9 +11,10 @@ builder.Services.AddRazorComponents()
 
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContext<Contexto>(options => options.UseSqlite(ConStr));
+builder.Services.AddScoped<PrioridadesBLL>();
+
 var app = builder.Build();
 
-builder.Services.AddScoped<PrioridadesBLL>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
