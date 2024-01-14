@@ -1,4 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Proyecto_Prioridades.BLL;
 using Proyecto_Prioridades.Components;
+using Proyecto_Prioridades.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,8 +9,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
+builder.Services.AddDbContext<Contexto>(options => options.UseSqlite(ConStr));
 var app = builder.Build();
 
+builder.Services.AddScoped<PrioridadesBLL>();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
