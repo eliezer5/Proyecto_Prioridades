@@ -47,11 +47,13 @@
         </div>
     </div>
 </EditForm>
+<p class="text-success">@_mensaje3</p>
 
 @code {
     public Prioridades _prioridad = new Prioridades();
     public string _mensaje = string.Empty;
     public string _mensaje2 = string.Empty;
+    public string _mensaje3 = string.Empty;
 
     public async Task Buscar()
     {
@@ -76,6 +78,7 @@
         if (guardo)
         {
             Nuevo();
+            _mensaje3 = "Se ha guardado correctamente.";
         }
         else
             _mensaje = "Ya existe una descripción igual.";
@@ -86,6 +89,7 @@
         _prioridad = new Prioridades();
         _mensaje = string.Empty;
         _mensaje2 = string.Empty;
+        _mensaje3 = string.Empty;
     }
 
     public void Eliminar()
