@@ -72,9 +72,9 @@
         }
     }
 
-    public void Save()
+    public async Task Save()
     {
-        var guardo = _prioridadesBLL.Save(_prioridad);
+        var guardo = await _prioridadesBLL.Save(_prioridad);
         if (guardo)
         {
             Nuevo();
@@ -92,9 +92,9 @@
         _mensaje3 = string.Empty;
     }
 
-    public void Eliminar()
+    public async Task Eliminar()
     {
-        var eliminado = _prioridadesBLL.Delete(_prioridad.PrioridadId);
+        var eliminado = await _prioridadesBLL.Delete(_prioridad.PrioridadId);
         if (eliminado)
         {
             Nuevo();

@@ -1,5 +1,7 @@
-﻿using Proyecto_Prioridades.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using Proyecto_Prioridades.DAL;
 using Proyecto_Prioridades.Models;
+using System.Linq.Expressions;
 
 namespace Proyecto_Prioridades.BLL
 {
@@ -11,7 +13,7 @@ namespace Proyecto_Prioridades.BLL
             _contexto = contexto;
         }
 
-        public bool Save(Prioridades prioridad)
+        public async Task<bool> Save(Prioridades prioridad)
         {
             if (_contexto.Prioridades.Any(p => p.Descripción.ToLower() == prioridad.Descripción.ToLower()))
             {
@@ -19,11 +21,12 @@ namespace Proyecto_Prioridades.BLL
             }
             if (prioridad.PrioridadId == 0)
                 _contexto.Prioridades.Add(prioridad);
-
-            var saved = _contexto.SaveChanges() > 0;
+            else
+                _contexto.Update(prioridad);
+           
+            var saved = await _contexto.SaveChangesAsync() > 0;
             return saved;
         }
-
 
         public async Task<Prioridades?> FindAsync(int id)
         {
@@ -31,27 +34,21 @@ namespace Proyecto_Prioridades.BLL
             return prioridad;
         }
 
-        public async Task<string> FindDescription(int id)
-        {
-            var prioridad = await _contexto.Prioridades.FindAsync(id);
-
-
-            return prioridad.Descripción;
-        }
-
-        public bool Delete(int id)
+        public async Task <bool> Delete(int id)
         {
             var prioridad = _contexto.Prioridades.Find(id);
 
             _contexto.Prioridades.Remove(prioridad);
-            var deleted = _contexto.SaveChanges() > 0;
+            var deleted = await _contexto.SaveChangesAsync() > 0;
             return deleted;
         }
         //get all
-        public List<Prioridades> GetTickets()
+        public async Task <List<Prioridades>> GetPrioridades(Expression<Func<Prioridades, bool>> criterio)
         {
-            var prioridades = _contexto.Prioridades.ToList();
-            return prioridades;
+           return await _contexto.Prioridades
+                .AsNoTracking()
+                .Where(criterio)
+                .ToListAsync();
         }
     }
 }
