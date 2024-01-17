@@ -22,9 +22,9 @@
                     <p class="text-danger">@_mensaje2</p>
                 </div>
 
-                @*Descripcion*@
+                @*Descripción*@
                 <div class="mb-3">
-                    <label class="form-label" for="Descripcion">Descripcion:</label>
+                    <label class="form-label" for="Descripción">Descripción:</label>
                     <InputText @bind-Value="_prioridad.Descripción" class="form-control" />
                     <ValidationMessage For="@(() => _prioridad.Descripción)" />
                 </div>
@@ -39,9 +39,9 @@
             </div>
             <div class="card-footer d-flex justify-content-center">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
-                    <button type="submit" class="btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
-                    <button type="button" class="btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+                    <button type="button" class="bi bi-file-earmark-plus btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
+                    <button type="submit" class="bi bi-floppy btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
+                    <button type="button" class="bi bi-x-circle-fill btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
                 </div>
             </div>
         </div>
