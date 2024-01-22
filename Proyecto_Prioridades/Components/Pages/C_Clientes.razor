@@ -1,0 +1,50 @@
+﻿@page "/Consulta"
+@rendermode InteractiveServer
+@inject ClientesBLL clienteBLL
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header">
+            <h3>Consulta Clientes</h3>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ClienteID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Celular</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">RNC</th>
+                    <th scope="col">Direccion</th>
+                </tr>
+            </thead>
+            <tbody>
+                    @foreach(var cliente in clientes)
+                    {
+                        <tr>
+                            <td scope="row">@cliente.ClienteID</td>
+                            <td scope="row">@cliente.Nombres</td>
+                            <td scope="row">@cliente.Telefono</td>
+                            <td scope="row">@cliente.Celular</td>
+                            <td scope="row">@cliente.Email</td>
+                            <td scope="row">@cliente.Rnc</td>
+                            <td scope="row">@cliente.Direccion</td>
+                        </tr>
+                    }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    public List<Clientes> clientes { get; set; } = new List<Clientes>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Aquí podrías utilizar un criterio específico si es necesario
+        Expression<Func<Clientes, bool>> criterio = c => c.ClienteID >= 1;
+       
+        // Llama a la función GetClientes del servicio
+        clientes = await clienteBLL.GetClientes(criterio);
+    }
+}
