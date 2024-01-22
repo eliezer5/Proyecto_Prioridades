@@ -41,10 +41,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // Aquí podrías utilizar un criterio específico si es necesario
         Expression<Func<Clientes, bool>> criterio = c => c.ClienteID >= 1;
-       
-        // Llama a la función GetClientes del servicio
         clientes = await clienteBLL.GetClientes(criterio);
     }
 }
