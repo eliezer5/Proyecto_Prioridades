@@ -1,0 +1,142 @@
+﻿@page "/Clientes"
+@inject ClientesBLL ClientesBLL
+@rendermode InteractiveServer
+<EditForm Model="cliente" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3>Registro de Tickets.</h3>
+            </div>
+            <div class=card-body>
+
+                @*Cliente Id:*@
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>CLiente Id:</label>
+                    <div class="input-group mb-3">
+                        <InputNumber @bind-Value="cliente.ClienteID" class="form-control" aria-describedby="BotonBuscar" />
+                        <button @onclick="Buscar" class="bi bi-search" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
+                    </div>
+                    <p class="text-danger">@_mensaje2</p>
+                </div>
+
+                @*Nombres :*@
+               <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>Nombre:</label>
+                    <div class="input-group mb-3">
+                        <InputText @bind-Value="cliente.Nombres" class="form-control" aria-describedby="BotonBuscar" />
+                    </div>
+                   @*  <p class="text-danger">@_mensajeTelefono</p> *@
+
+
+                </div> @*Telefono:*@
+               <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>Teléfono:</label>
+                    <div class="input-group mb-3">
+                        <InputText @bind-Value="cliente.Telefono" class="form-control" aria-describedby="BotonBuscar" />
+                    </div>
+                   @*  <p class="text-danger">@_mensajeTelefono</p> *@
+                </div>
+
+                @*Celular:*@
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>Celular:</label>
+                    <div class="input-group mb-3">
+                        <InputText @bind-Value="cliente.Celular" class="form-control" aria-describedby="BotonBuscar" />
+                    </div>
+                    @* <p class="text-danger">@_mensajeCelular</p> *@
+                </div>
+
+                @*RNC:*@
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>RNC:</label>
+                    <div class="input-group mb-3">
+                        <InputText @bind-Value="cliente.Rnc" class="form-control" aria-describedby="BotonBuscar" />
+                    </div>
+                 @*    <p class="text-danger">@_mensajeRnc</p> *@
+                </div>
+
+                @*Email:*@
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>Email:</label>
+                    <div class="input-group mb-3">
+                        <InputText @bind-Value="cliente.Email" class="form-control" aria-describedby="BotonBuscar" />
+                    </div>
+                  @*   <p class="text-danger">@_mensajeEmail</p> *@
+                </div>
+
+                @*Direccion*@
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
+                    <label>Dirección:</label>
+                    <div class="input-group mb-3">
+                        <InputText @bind-Value="cliente.Direccion" class="form-control" aria-describedby="BotonBuscar" />
+                    </div>
+                    @* <p class="text-danger">@_mensajeDireccion</p> *@
+                </div>
+           </div>
+           <div class="card-footer d-flex justify-content-center">
+               <div class="btn-group">
+                   <button type="button" class="bi bi-file-earmark-plus btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
+                   <button type="submit" class="bi bi-floppy btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
+                   <button type="button" class="bi bi-x-circle-fill btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+               </div>
+           </div>
+       </div>
+   </div>
+</EditForm>
+<p class="text-success">@_mensaje3</p>
+
+@code {
+    public Clientes cliente = new Clientes();
+    public string _mensaje = string.Empty;
+    public string _mensaje2 = string.Empty;
+    public string _mensaje3 = string.Empty;
+
+    public async Task Buscar()
+    {
+        var encontrado = await ClientesBLL.FindAsync(cliente.ClienteID);
+        if (encontrado != null)
+        {
+            cliente = encontrado;
+            _mensaje2 = string.Empty;
+
+        }
+        else
+        {
+
+            _mensaje2 = "No se encontró el id";
+
+        }
+    }
+
+    public async Task Save()
+    {
+        var guardo = await ClientesBLL.Save(cliente);
+        if (guardo)
+        {
+            Nuevo();
+            _mensaje3 = "Se ha guardado correctamente.";
+        }
+        else
+            _mensaje = "Ya existe una descripción igual.";
+    }
+
+    public void Nuevo()
+    {
+        cliente = new Clientes();
+        _mensaje = string.Empty;
+        _mensaje2 = string.Empty;
+        _mensaje3 = string.Empty;
+    }
+
+    public async Task Eliminar()
+    {
+        var eliminado = await ClientesBLL.Delete(cliente.ClienteID);
+        if (eliminado)
+        {
+            Nuevo();
+        }
+
+    }
+}

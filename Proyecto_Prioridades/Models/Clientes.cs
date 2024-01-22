@@ -9,9 +9,12 @@ namespace Proyecto_Prioridades.Models
 
         [RegularExpression(@"^[a-zA-Z]+(?: [a-zA-Z]+)*$", ErrorMessage = "El nombre es requerido")]
         public string Nombres { get; set; }
-        [RegularExpression(@"/+(?:[0-9] ?){6,14}[0-9]$")]
+        
+        [RegularExpression("^[0-9]+$", ErrorMessage = "El Celular solo puede contener digitos.")]
+        [StringLength(maximumLength: 10, MinimumLength = 10, ErrorMessage = "La longitud debe ser de 10 dígitos")]
         public string? Telefono { get; set; }
-        [RegularExpression(@"/+(?:[0-9] ?){6,14}[0-9]$", ErrorMessage = "El Celular es requerido")]
+        [RegularExpression("^[0-9]+$", ErrorMessage = "El Celular solo puede contener digitos.")]
+        [StringLength(maximumLength: 10, MinimumLength = 10, ErrorMessage = "La longitud debe ser de 10 dígitos")]
         public string Celular { get; set; }
         [RegularExpression(@"^[0-9]{9}[-][0-9]{1}$|^[0-9]{11}$", ErrorMessage = "El RNC es requerido")]
         public string Rnc {  get; set; }
