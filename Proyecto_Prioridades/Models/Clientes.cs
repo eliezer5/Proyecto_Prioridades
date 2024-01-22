@@ -25,7 +25,7 @@ namespace Proyecto_Prioridades.Models
         [Required(ErrorMessage = "El campo de Correo Electronico es requerido.")]
         [EmailAddress(ErrorMessage ="Ingrese una dirección de correo electrónico válida.")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "La direccion es requerida")]
+        [Required(ErrorMessage = "La dirección es requerida")]
         [RegularExpression(@"^[a-zA-Z0-9\s,'-]*$", ErrorMessage = "Ingrese una dirección válida.")]
         public string Direccion { get; set; }
 
