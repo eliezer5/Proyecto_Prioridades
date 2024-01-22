@@ -18,7 +18,7 @@
                         <InputNumber @bind-Value="cliente.ClienteID" class="form-control" aria-describedby="BotonBuscar" />
                         <button @onclick="Buscar" class="bi bi-search" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
                     </div>
-                    <p class="text-danger">@_mensaje2</p>
+                  
                 </div>
 
                 @*Nombres :*@
@@ -27,16 +27,15 @@
                     <div class="input-group mb-3">
                         <InputText @bind-Value="cliente.Nombres" class="form-control" aria-describedby="BotonBuscar" />
                     </div>
-                   @*  <p class="text-danger">@_mensajeTelefono</p> *@
+               </div>
 
-
-                </div> @*Telefono:*@
+                @*Telefono:*@
                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
                     <label>Teléfono:</label>
                     <div class="input-group mb-3">
                         <InputText @bind-Value="cliente.Telefono" class="form-control" aria-describedby="BotonBuscar" />
                     </div>
-                   @*  <p class="text-danger">@_mensajeTelefono</p> *@
+                   
                 </div>
 
                 @*Celular:*@
@@ -45,7 +44,7 @@
                     <div class="input-group mb-3">
                         <InputText @bind-Value="cliente.Celular" class="form-control" aria-describedby="BotonBuscar" />
                     </div>
-                    @* <p class="text-danger">@_mensajeCelular</p> *@
+                   
                 </div>
 
                 @*RNC:*@
@@ -54,7 +53,7 @@
                     <div class="input-group mb-3">
                         <InputText @bind-Value="cliente.Rnc" class="form-control" aria-describedby="BotonBuscar" />
                     </div>
-                 @*    <p class="text-danger">@_mensajeRnc</p> *@
+                   
                 </div>
 
                 @*Email:*@
@@ -63,7 +62,7 @@
                     <div class="input-group mb-3">
                         <InputText @bind-Value="cliente.Email" class="form-control" aria-describedby="BotonBuscar" />
                     </div>
-                  @*   <p class="text-danger">@_mensajeEmail</p> *@
+                 
                 </div>
 
                 @*Direccion*@
@@ -72,8 +71,9 @@
                     <div class="input-group mb-3">
                         <InputText @bind-Value="cliente.Direccion" class="form-control" aria-describedby="BotonBuscar" />
                     </div>
-                    @* <p class="text-danger">@_mensajeDireccion</p> *@
-                </div>
+                    
+                </div> 
+          
            </div>
            <div class="card-footer d-flex justify-content-center">
                <div class="btn-group">
@@ -83,15 +83,14 @@
                </div>
            </div>
        </div>
+       <p>@_mensaje</p>
    </div>
 </EditForm>
-<p class="text-success">@_mensaje3</p>
+
 
 @code {
     public Clientes cliente = new Clientes();
     public string _mensaje = string.Empty;
-    public string _mensaje2 = string.Empty;
-    public string _mensaje3 = string.Empty;
 
     public async Task Buscar()
     {
@@ -99,13 +98,13 @@
         if (encontrado != null)
         {
             cliente = encontrado;
-            _mensaje2 = string.Empty;
+            _mensaje = string.Empty;
 
         }
         else
         {
 
-            _mensaje2 = "No se encontró el id";
+            _mensaje = "No se encontró el id";
 
         }
     }
@@ -116,18 +115,17 @@
         if (guardo)
         {
             Nuevo();
-            _mensaje3 = "Se ha guardado correctamente.";
+            _mensaje = "Se ha guardado correctamente.";
         }
         else
-            _mensaje = "Ya existe una descripción igual.";
+            _mensaje = "Ya existe un Nombre o un RNC igual";
     }
 
     public void Nuevo()
     {
         cliente = new Clientes();
         _mensaje = string.Empty;
-        _mensaje2 = string.Empty;
-        _mensaje3 = string.Empty;
+      
     }
 
     public async Task Eliminar()
