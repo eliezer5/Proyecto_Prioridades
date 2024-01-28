@@ -58,8 +58,6 @@
 
     public Prioridades _prioridad = new Prioridades();
     public string _mensaje = string.Empty;
-    public string _mensaje2 = string.Empty;
-    public string _mensaje3 = string.Empty;
     public async Task Eliminar1()
     {
         var eliminado = await _prioridadesBLL.Delete(_prioridad.PrioridadId);

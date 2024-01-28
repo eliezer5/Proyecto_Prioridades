@@ -56,5 +56,16 @@ namespace Proyecto_Prioridades.BLL
                  .Where(criterio)
                  .ToListAsync();
         }
+
+
+        public async Task<Clientes?> FindByIdAsync(int id)
+        {
+
+
+            return await Task.Run(() =>
+            {
+                return _contexto.Clientes.FirstOrDefault(p => p.ClienteID == id);
+            });
+        }
     }
 }
