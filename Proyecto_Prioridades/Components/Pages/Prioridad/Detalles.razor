@@ -1,0 +1,28 @@
+﻿@page "/prioridad/Detalles/{PrioridadId:int}"
+@inject PrioridadesService prioridadBLL
+
+<div class="card">
+    <h1>Detalles.</h1>
+
+    <div class="card-body">
+        <p>Prioridad ID  =    @prioridad.PrioridadId</p>
+        <p>Descri&oacute;n  =  @prioridad.Descripción</p>
+        <p>Dias compromiso  =  @prioridad.DiasCompromiso</p>
+    </div>
+
+    <div class="card-footer">
+        <a href="" class="bi bi-arrow-return-left btn btn-outline-primary">Volver</a>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public int PrioridadId { get; set; }
+    public Prioridades prioridad = new Prioridades();
+
+    protected override async Task OnInitializedAsync()
+    {
+        prioridad = await prioridadBLL.FindByIdAsync(PrioridadId);
+    }
+}

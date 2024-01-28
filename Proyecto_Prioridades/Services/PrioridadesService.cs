@@ -5,10 +5,10 @@ using System.Linq.Expressions;
 
 namespace Proyecto_Prioridades.BLL
 {
-    public class PrioridadesBLL
+    public class PrioridadesService
     {
         private readonly Contexto _contexto;
-        public PrioridadesBLL(Contexto contexto)
+        public PrioridadesService(Contexto contexto)
         {
             _contexto = contexto;
         }
@@ -50,5 +50,16 @@ namespace Proyecto_Prioridades.BLL
                 .Where(criterio)
                 .ToListAsync();
         }
+
+        public async Task<Prioridades?> FindByIdAsync(int id)
+        {
+     
+
+            return await Task.Run(() =>
+            {
+                return _contexto.Prioridades.FirstOrDefault(p => p.PrioridadId == id);
+            });
+        }
+
     }
 }

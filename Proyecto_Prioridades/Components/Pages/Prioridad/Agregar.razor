@@ -1,4 +1,4 @@
-﻿@page "/Prioridad"
+﻿@page "/prioridad/Agregar"
 @inject PrioridadesService _prioridadesBLL
 @rendermode InteractiveServer
 <PageTitle>Prioridad</PageTitle>
@@ -12,15 +12,7 @@
             </div>
             <div class=card-body>
 
-                @*Prioridad Id:*@
-                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 col-xl-4">
-                    <label>Prioridad Id:</label>
-                    <div class="input-group mb-3">
-                        <InputNumber @bind-Value="_prioridad.PrioridadId" class="form-control" aria-describedby="BotonBuscar" />
-                        <button @onclick="Buscar" class="bi bi-search" type="button" id="BotonBuscar"><i class="oi oi-magnifying-glass" /></button>
-                    </div>
-                    <p class="text-danger">@_mensaje2</p>
-                </div>
+                
 
                 @*Descripción*@
                 <div class="mb-3">
@@ -37,13 +29,22 @@
                     <ValidationMessage For="@(() => _prioridad.DiasCompromiso)" />
                 </div>
             </div>
-            <div class="card-footer d-flex justify-content-center">
-                <div class="btn-group">
-                    <button type="button" class="bi bi-file-earmark-plus btn btn-outline-primary" @onclick="Nuevo">Nuevo <i class="oi oi-file" /></button>
-                    <button type="submit" class="bi bi-floppy btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
-                    <button type="button" class="bi bi-x-circle-fill btn btn-outline-danger" @onclick="Eliminar">Eliminar <i class="oi oi-trash" /></button>
+            <div class="card-footer d-flex justify-content-between">
+
+                <div class="btn">
+                    <a href="" class="bi bi-arrow-return-left btn btn-outline-primary">Volver</a>
                 </div>
+
+                <div class="btn align-self-center">
+                    <button type="submit" class="bi bi-floppy btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
+                    <button type="button" class="bi bi-file-earmark-plus btn btn-outline-primary" @onclick=Nuevo>Nuevo</button>
+                </div>
+
+                <div>
+                </div>
+
             </div>
+           
         </div>
     </div>
 </EditForm>
@@ -52,25 +53,9 @@
 @code {
     public Prioridades _prioridad = new Prioridades();
     public string _mensaje = string.Empty;
-    public string _mensaje2 = string.Empty;
     public string _mensaje3 = string.Empty;
 
-    public async Task Buscar()
-    {
-        var encontrado = await _prioridadesBLL.FindAsync(_prioridad.PrioridadId);
-        if (encontrado != null)
-        {
-            _prioridad = encontrado;
-            _mensaje2 = string.Empty;
-
-        }
-        else
-        {
-
-            _mensaje2 = "No se encontró el id";
-
-        }
-    }
+    
 
     public async Task Save()
     {
@@ -88,18 +73,7 @@
     {
         _prioridad = new Prioridades();
         _mensaje = string.Empty;
-        _mensaje2 = string.Empty;
         _mensaje3 = string.Empty;
-    }
-
-    public async Task Eliminar()
-    {
-        var eliminado = await _prioridadesBLL.Delete(_prioridad.PrioridadId);
-        if (eliminado)
-        {
-            Nuevo();
-        }
-
     }
 }
 

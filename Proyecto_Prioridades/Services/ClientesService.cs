@@ -5,12 +5,12 @@ using System.Linq.Expressions;
 
 namespace Proyecto_Prioridades.BLL
 {
-    public class ClientesBLL
+    public class ClientesService
     {
 
         private readonly Contexto _contexto;
 
-        public ClientesBLL(Contexto contexto)
+        public ClientesService(Contexto contexto)
         {
             _contexto = contexto;
         }
