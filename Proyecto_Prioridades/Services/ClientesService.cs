@@ -3,7 +3,7 @@ using Proyecto_Prioridades.DAL;
 using Proyecto_Prioridades.Models;
 using System.Linq.Expressions;
 
-namespace Proyecto_Prioridades.BLL
+namespace Proyecto_Prioridades.Services
 {
     public class ClientesService
     {

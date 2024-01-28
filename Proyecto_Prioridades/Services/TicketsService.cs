@@ -16,13 +16,20 @@ namespace Proyecto_Prioridades.Services
 
         public async Task<bool> validar(Tickets ticket)
         {
-            return await _contexto.Tickets.AnyAsync(c =>
-            (c.Asunto!.ToLower() == ticket.Asunto!.ToLower()
-            || c.Descripcion == ticket.Descripcion));
+            var prioridadId =  await _contexto.Prioridades.AnyAsync(c =>
+            c.PrioridadId == ticket.PrioridadId);
+
+            var clienteId = await _contexto.Clientes.AnyAsync(c =>
+            c.ClienteID == ticket.ClienteId);
+
+            var sistemaId = await _contexto.Sistemas.AnyAsync(c =>
+            c.SistemaId == ticket.SistemaId);
+
+            return prioridadId || clienteId || sistemaId;
         }
         public async Task<bool> Save(Tickets ticket)
         {
-            if (await validar(ticket))
+            if (!(await validar(ticket)))
                 return false;
             if (ticket.SistemaId == 0)
                 _contexto.Tickets.Add(ticket);

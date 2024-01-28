@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Proyecto_Prioridades.BLL;
+using Proyecto_Prioridades.Services;
 using Proyecto_Prioridades.Components;
 using Proyecto_Prioridades.DAL;
 using Proyecto_Prioridades.Models;

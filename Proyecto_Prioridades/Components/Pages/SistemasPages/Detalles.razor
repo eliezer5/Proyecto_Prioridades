@@ -1,0 +1,28 @@
+﻿@page "/sistema/Detalles/{SistemaId:int}"
+@inject SistemasService sistemaService
+
+<div class="card">
+    <h1>Detalles.</h1>
+
+    <div class="card-body">
+        <p>Prioridad ID  =    @prioridad.SistemaId</p>
+        <p>Nombre Sistema  =  @prioridad.NombreSistema</p>
+        <p>Descri&oacute;n  =  @prioridad.DescripcionSistema</p>
+    </div>
+
+    <div class="card-footer">
+        <a href="/ConsultaSistema" class="bi bi-arrow-return-left btn btn-outline-primary">Volver</a>
+    </div>
+</div>
+
+
+@code {
+    [Parameter]
+    public int SistemaId { get; set; }
+    public Sistemas prioridad = new Sistemas();
+
+    protected override async Task OnInitializedAsync()
+    {
+        prioridad = await sistemaService.FindByIdAsync(SistemaId);
+    }
+}

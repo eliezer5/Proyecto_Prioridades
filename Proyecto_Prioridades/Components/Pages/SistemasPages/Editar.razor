@@ -1,0 +1,82 @@
+﻿@page "/sistema/Editar/{SistemaId:int}"
+@inject SistemasService sistemaService
+@rendermode InteractiveServer
+<PageTitle>Prioridad</PageTitle>
+<EditForm Model="sistema" OnValidSubmit="Save">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3>Editar Prioridad.</h3>
+            </div>
+            <div class=card-body>
+
+
+                @*Nombre sistema*@
+                <div class="mb-3">
+                    <label class="form-label" for="SolicitadoPor">Nombre Sistema:</label>
+                    <InputText @bind-Value="sistema.NombreSistema" class="form-control" />
+                    <ValidationMessage For="@(() => sistema.NombreSistema)" />
+                </div>
+
+                @*Descripción*@
+                <div class="mb-3">
+                    <label class="form-label" for="Descripción">Descripción Sistema:</label>
+                    <InputText @bind-Value="sistema.DescripcionSistema" class="form-control" />
+                    <ValidationMessage For="@(() => sistema.DescripcionSistema)" />
+                </div>
+                <p class="text-danger">@_mensaje</p>
+
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div class="btn">
+                    <a href="/ConsultaSistema" class="bi bi-arrow-return-left btn btn-outline-primary">Volver</a>
+                </div>
+
+                <div class="btn">
+                    <button type="submit" class="bi bi-floppy btn btn-outline-success">Guardar <i class="oi oi-document" /></button>
+                </div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</EditForm>
+<p class="text-success">@_mensaje3</p>
+
+@code {
+    public Sistemas sistema = new Sistemas();
+    public string _mensaje = string.Empty;
+    public string _mensaje3 = string.Empty;
+
+    [Parameter]
+    public int SistemaId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtener los detalles de la prioridad utilizando el PrioridadId
+        sistema = await sistemaService.FindByIdAsync(SistemaId);
+
+    }
+
+    public async Task Save()
+    {
+        var guardo = await sistemaService.Save(sistema);
+        if (guardo)
+        {
+            Nuevo();
+            _mensaje3 = "Se ha guardado correctamente.";
+        }
+        else
+            _mensaje = "Ya existe una descripción igual.";
+    }
+
+    public void Nuevo()
+    {
+        sistema = new Sistemas();
+        _mensaje = string.Empty;
+        _mensaje3 = string.Empty;
+    }
+
+
+}

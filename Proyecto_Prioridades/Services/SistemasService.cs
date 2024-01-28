@@ -48,7 +48,7 @@ namespace Proyecto_Prioridades.Services
             return deleted;
         }
         //get all
-        public async Task<List<Sistemas>> GetClientes(Expression<Func<Sistemas, bool>> criterio)
+        public async Task<List<Sistemas>> GetSistemas(Expression<Func<Sistemas, bool>> criterio)
         {
             return await _contexto.Sistemas
                  .AsNoTracking()
