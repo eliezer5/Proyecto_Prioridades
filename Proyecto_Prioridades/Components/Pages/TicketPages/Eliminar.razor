@@ -1,0 +1,110 @@
+﻿@page "/ticket/Eliminar/{TicketId:int}"
+@inject TicketsService ticketService
+
+@rendermode InteractiveServer
+<h3>Detalles de Prioridad</h3>
+<EditForm Model="ticket">
+    <DataAnnotationsValidator />
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header">
+                <h3>Eliminar Ticket.</h3>
+            </div>
+            <div class=card-body>
+
+
+                @*Fecha*@
+                <div class="mb-3">
+                    <label class="form-label" for="Nombre">Fecha:</label>
+                    <InputDate @bind-Value="ticket.Fecha" class="form-control" />
+                    <ValidationMessage For="@(() => ticket.Fecha)" />
+                </div>
+                <p class="text-danger">@_mensaje</p>
+
+                @*ClienteId*@
+                <div class="mb-3">
+                    <label class="form-label" for="SolicitadoPor">ClienteId</label>
+                    <InputNumber @bind-Value="ticket.ClienteId" class="form-control" />
+                    <ValidationMessage For="@(() => ticket.ClienteId)" />
+                </div>
+
+                @*SistemaID*@
+                <div class="mb-3">
+                    <label class="form-label" for="Nombre">SistemaId:</label>
+                    <InputNumber @bind-Value="ticket.SistemaId" class="form-control" />
+                    <ValidationMessage For="@(() => ticket.SistemaId)" />
+                </div>
+                <p class="text-danger">@_mensaje</p>
+
+                @*Descripcion Sistema*@
+                <div class="mb-3">
+                    <label class="form-label" for="SolicitadoPor">PrioridadId</label>
+                    <InputNumber @bind-Value="ticket.PrioridadId" class="form-control" />
+                    <ValidationMessage For="@(() => ticket.PrioridadId)" />
+                </div>
+
+                @*Nombre Sistema*@
+                <div class="mb-3">
+                    <label class="form-label" for="Nombre">SolicitadoPor:</label>
+                    <InputText @bind-Value="ticket.SolicitadoPor" class="form-control" />
+                    <ValidationMessage For="@(() => ticket.SolicitadoPor)" />
+                </div>
+                <p class="text-danger">@_mensaje</p>
+
+                @*Descripcion Sistema*@
+                <div class="mb-3">
+                    <label class="form-label" for="SolicitadoPor">Asunto</label>
+                    <InputText @bind-Value="ticket.Asunto" class="form-control" />
+                    <ValidationMessage For="@(() => ticket.Asunto)" />
+                </div>
+
+                @*Descripcion Sistema*@
+                <div class="mb-3">
+                    <label class="form-label" for="SolicitadoPor">Descripci&oacute;n</label>
+                    <InputText @bind-Value="ticket.Descripcion" class="form-control" />
+                    <ValidationMessage For="@(() => ticket.Descripcion)" />
+                </div>
+
+
+
+            </div>
+            <div class="card-footer d-flex justify-content-between">
+                <div class="btn">
+                    <a href="/ConsultaTicket" class="bi bi-arrow-return-left btn btn-outline-primary">Volver</a>
+                </div>
+                <div class="btn align-self-center">
+                    <button type="button" class="bi bi-x-circle-fill btn btn-outline-danger" @onclick="Eliminar1">Eliminar <i class="oi oi-trash" /></button>
+                </div>
+                <div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int TicketId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Obtener los detalles de la prioridad utilizando el PrioridadId
+        ticket = await ticketService.FindByIdAsync(TicketId);
+
+    }
+
+    public Tickets ticket = new Tickets();
+    public string _mensaje = string.Empty;
+    public async Task Eliminar1()
+    {
+        var eliminado = await ticketService.Delete(ticket.TicketId);
+        if (eliminado)
+        {
+            _mensaje = "Prioridad eliminada con exito.";
+
+        }
+
+    }
+}

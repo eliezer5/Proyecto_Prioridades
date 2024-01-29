@@ -1,0 +1,51 @@
+﻿@page "/ConsultaSistema"
+@rendermode InteractiveServer
+@inject SistemasService sistemaService
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header d-flex justify-content-between align-items-end">
+            <h3>Consulta Sistemas</h3>
+            <a href="" class="btn btn-outline-primary bi bi-house-door-fill">Inicio</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">SistemaID</th>
+                    <th scope="col">Nombre Sistema</th>
+                    <th scope="col">Descripcion Sistema</th>
+                    <th scope="col"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var sistema in sistemas)
+                {
+                    <tr>
+                        <td scope="row">@sistema.SistemaId</td>
+                        <td scope="row">@sistema.NombreSistema</td>
+                        <td scope="row">@sistema.DescripcionSistema</td>
+                        <td>
+                            <a href="sistema/Editar/@sistema.SistemaId" class="btn btn-outline-info bi-pencil-square"></a>
+                            <a href="sistema/Eliminar/@sistema.SistemaId" class="btn btn-outline-danger bi bi-trash-fill"></a>
+                            <a href="sistema/Detalles/@sistema.SistemaId " class=" btn btn-outline-dark bi bi-info-square"></a>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    public List<Sistemas> sistemas { get; set; } = new List<Sistemas>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Expression<Func<Sistemas, bool>> criterio = c => c.SistemaId >= 1;
+        sistemas = await sistemaService.GetSistemas(criterio);
+    }
+
+
+}
