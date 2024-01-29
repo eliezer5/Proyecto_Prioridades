@@ -1,5 +1,5 @@
 ﻿@page "/prioridad/Editar/{PrioridadId:int}"
-@inject PrioridadesService prioridadesBLL
+@inject PrioridadesService prioridadesService
 @rendermode InteractiveServer
 <PageTitle>Prioridad</PageTitle>
 <EditForm Model="prioridad" OnValidSubmit="Save">
@@ -55,13 +55,13 @@
     protected override async Task OnInitializedAsync()
     {
         // Obtener los detalles de la prioridad utilizando el PrioridadId
-        prioridad = await prioridadesBLL.FindByIdAsync(PrioridadId);
+        prioridad = await prioridadesService.FindByIdAsync(PrioridadId);
 
     }
 
     public async Task Save()
     {
-        var guardo = await prioridadesBLL.Save(prioridad);
+        var guardo = await prioridadesService.Save(prioridad);
         if (guardo)
         {
             Nuevo();

@@ -1,5 +1,5 @@
 ﻿@page "/prioridad/Detalles/{PrioridadId:int}"
-@inject PrioridadesService prioridadBLL
+@inject PrioridadesService prioridadesService
 
 <div class="card">
     <h1>Detalles.</h1>
@@ -23,6 +23,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        prioridad = await prioridadBLL.FindByIdAsync(PrioridadId);
+        prioridad = await prioridadesService.FindByIdAsync(PrioridadId);
     }
 }

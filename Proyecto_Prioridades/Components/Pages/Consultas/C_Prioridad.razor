@@ -1,6 +1,6 @@
 ﻿@page "/ConsultaPrioridad"
 @rendermode InteractiveServer
-@inject PrioridadesService PrioridadesBLL
+@inject PrioridadesService PrioridadesService
 @inject NavigationManager NavigationManager
 <div class="container">
     <div class="card shadow-lg">
@@ -45,7 +45,7 @@
     protected override async Task OnInitializedAsync()
     {
         Expression<Func<Prioridades, bool>> criterio = c => c.PrioridadId >= 1;
-        prioridades = await PrioridadesBLL.GetPrioridades(criterio);
+        prioridades = await PrioridadesService.GetPrioridades(criterio);
     }
 
   

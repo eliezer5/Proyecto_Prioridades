@@ -1,6 +1,6 @@
 ﻿@page "/ConsultaCliente"
 @rendermode InteractiveServer
-@inject ClientesService clienteBLL
+@inject ClientesService clienteService
 <div class="container">
     <div class="card shadow-lg">
         <div class="card-header d-flex justify-content-between align-items-end">
@@ -50,6 +50,6 @@
     protected override async Task OnInitializedAsync()
     {
         Expression<Func<Clientes, bool>> criterio = c => c.ClienteID >= 1;
-        clientes = await clienteBLL.GetClientes(criterio);
+        clientes = await clienteService.GetClientes(criterio);
     }
 }

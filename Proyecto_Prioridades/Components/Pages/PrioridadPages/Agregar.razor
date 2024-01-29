@@ -1,5 +1,5 @@
 ﻿@page "/prioridad/Agregar"
-@inject PrioridadesService prioridadesBLL
+@inject PrioridadesService prioridadesService
 @rendermode InteractiveServer
 <PageTitle>Prioridad</PageTitle>
 <EditForm Model="prioridad" OnValidSubmit="Save">
@@ -59,7 +59,7 @@
 
     public async Task Save()
     {
-        var guardo = await prioridadesBLL.Save(prioridad);
+        var guardo = await prioridadesService.Save(prioridad);
         if (guardo)
         {
             Nuevo();

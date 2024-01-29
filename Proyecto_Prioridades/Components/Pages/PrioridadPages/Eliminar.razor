@@ -1,5 +1,5 @@
 ﻿@page "/prioridad/Eliminar/{PrioridadId:int}"
-@inject PrioridadesService prioridadesBLL
+@inject PrioridadesService prioridadesService
 
 @rendermode InteractiveServer
 <h3>Detalles de Prioridad</h3>
@@ -52,7 +52,7 @@
     protected override async Task OnInitializedAsync()
     {
         // Obtener los detalles de la prioridad utilizando el PrioridadId
-         prioridad = await prioridadesBLL.FindByIdAsync(PrioridadId);
+        prioridad = await prioridadesService.FindByIdAsync(PrioridadId);
        
     }
 
@@ -60,7 +60,7 @@
     public string _mensaje = string.Empty;
     public async Task Eliminar1()
     {
-        var eliminado = await prioridadesBLL.Delete(prioridad.PrioridadId);
+        var eliminado = await prioridadesService.Delete(prioridad.PrioridadId);
         if (eliminado)
         {
             _mensaje = "Prioridad eliminada con exito.";
