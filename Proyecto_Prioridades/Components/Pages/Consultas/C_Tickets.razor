@@ -1,0 +1,57 @@
+﻿@page "/ConsultaTicket"
+@inject TicketsService ticketService
+@rendermode InteractiveServer
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header d-flex justify-content-between align-items-end">
+            <h3>Consulta Tickets</h3>
+            <a href="" class="btn btn-outline-primary bi bi-house-door-fill">Inicio</a>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">TicketId</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">ClienteId</th>
+                    <th scope="col">SistemaId</th>
+                    <th scope="col">PrioridadId</th>
+                    <th scope="col">SolicitadoPor</th>
+                    <th scope="col">Asunto</th>
+                    <th scope="col">Direcci&oacute;n</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var ticket in Tickets)
+                {
+                    <tr>
+                        <td scope="row">@ticket.TicketId</td>
+                        <td scope="row">@ticket.Fecha</td>
+                        <td scope="row"><a href="cliente/Detalles/@ticket.ClienteId">@ticket.ClienteId </a></td>
+                        <td scope="row"><a href="sistema/Detalles/@ticket.SistemaId">@ticket.SistemaId</a></td>
+                        <td scope="row"><a href="prioridad/Detalles/@ticket.PrioridadId">@ticket.PrioridadId</a></td>
+                        <td scope="row">@ticket.SolicitadoPor</td>
+                        <td scope="row">@ticket.Asunto</td>
+                        <td scope="row">@ticket.Descripcion</td>
+
+                        <td>
+                            <a href="ticket/Editar/@ticket.TicketId" class="btn btn-outline-info bi-pencil-square"></a>
+                            <a href="ticket/Eliminar/@ticket.TicketId" class="btn btn-outline-danger bi bi-trash-fill"></a>
+                            <a href="ticket/Detalles/@ticket.TicketId " class=" btn btn-outline-dark bi bi-info-square"></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@code {
+    public List<Tickets> Tickets { get; set; } = new List<Tickets>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Expression<Func<Tickets, bool>> criterio = c => c.TicketId >= 1;
+        Tickets = await ticketService.GetTickets(criterio);
+    }
+}

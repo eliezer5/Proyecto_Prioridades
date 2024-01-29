@@ -14,23 +14,23 @@ namespace Proyecto_Prioridades.Services
             _contexto = contexto;
         }
 
-        public async Task<bool> validar(Tickets ticket)
-        {
-            var prioridadId =  await _contexto.Prioridades.AnyAsync(c =>
-            c.PrioridadId == ticket.PrioridadId);
+        //public async Task<bool> validar(Tickets ticket)
+        //{
+        //    var clienteId = await _contexto.Clientes.AnyAsync(c =>
+        //    c.ClienteID != ticket.ClienteId);
 
-            var clienteId = await _contexto.Clientes.AnyAsync(c =>
-            c.ClienteID == ticket.ClienteId);
+        //    var sistemaId = await _contexto.Sistemas.AnyAsync(c =>
+        //    c.SistemaId != ticket.SistemaId);
 
-            var sistemaId = await _contexto.Sistemas.AnyAsync(c =>
-            c.SistemaId == ticket.SistemaId);
+        //    var priordadID = await _contexto.Clientes.AnyAsync(c =>
+        //     (c.ClienteID != ticket.ClienteId));
 
-            return prioridadId || clienteId || sistemaId;
-        }
+
+        //    return priordadID || sistemaId || clienteId;
+        //}
         public async Task<bool> Save(Tickets ticket)
         {
-            if (!(await validar(ticket)))
-                return false;
+            
             if (ticket.SistemaId == 0)
                 _contexto.Tickets.Add(ticket);
             else
@@ -55,7 +55,7 @@ namespace Proyecto_Prioridades.Services
             return deleted;
         }
         //get all
-        public async Task<List<Tickets>> GetClientes(Expression<Func<Tickets, bool>> criterio)
+        public async Task<List<Tickets>> GetTickets(Expression<Func<Tickets, bool>> criterio)
         {
             return await _contexto.Tickets
                  .AsNoTracking()
