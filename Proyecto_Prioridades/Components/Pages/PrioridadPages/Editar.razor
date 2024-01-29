@@ -1,8 +1,8 @@
 ﻿@page "/prioridad/Editar/{PrioridadId:int}"
-@inject PrioridadesService _prioridadesBLL
+@inject PrioridadesService prioridadesBLL
 @rendermode InteractiveServer
 <PageTitle>Prioridad</PageTitle>
-<EditForm Model="_prioridad" OnValidSubmit="Save">
+<EditForm Model="prioridad" OnValidSubmit="Save">
     <DataAnnotationsValidator />
 
     <div class="container">
@@ -17,16 +17,16 @@
                 @*Descripción*@
                 <div class="mb-3">
                     <label class="form-label" for="Descripción">Descripción:</label>
-                    <InputText @bind-Value="_prioridad.Descripción" class="form-control" />
-                    <ValidationMessage For="@(() => _prioridad.Descripción)" />
+                    <InputText @bind-Value="prioridad.Descripción" class="form-control" />
+                    <ValidationMessage For="@(() => prioridad.Descripción)" />
                 </div>
                 <p class="text-danger">@_mensaje</p>
 
                 @*Dias compromiso*@
                 <div class="mb-3">
                     <label class="form-label" for="SolicitadoPor">Dias compromiso:</label>
-                    <InputNumber @bind-Value="_prioridad.DiasCompromiso" class="form-control" />
-                    <ValidationMessage For="@(() => _prioridad.DiasCompromiso)" />
+                    <InputNumber @bind-Value="prioridad.DiasCompromiso" class="form-control" />
+                    <ValidationMessage For="@(() => prioridad.DiasCompromiso)" />
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
@@ -45,7 +45,7 @@
 <p class="text-success">@_mensaje3</p>
 
 @code {
-    public Prioridades _prioridad = new Prioridades();
+    public Prioridades prioridad = new Prioridades();
     public string _mensaje = string.Empty;
     public string _mensaje3 = string.Empty;
 
@@ -55,13 +55,13 @@
     protected override async Task OnInitializedAsync()
     {
         // Obtener los detalles de la prioridad utilizando el PrioridadId
-        _prioridad = await _prioridadesBLL.FindByIdAsync(PrioridadId);
+        prioridad = await prioridadesBLL.FindByIdAsync(PrioridadId);
 
     }
 
     public async Task Save()
     {
-        var guardo = await _prioridadesBLL.Save(_prioridad);
+        var guardo = await prioridadesBLL.Save(prioridad);
         if (guardo)
         {
             Nuevo();
@@ -73,7 +73,7 @@
 
     public void Nuevo()
     {
-        _prioridad = new Prioridades();
+        prioridad = new Prioridades();
         _mensaje = string.Empty;
         _mensaje3 = string.Empty;
     }

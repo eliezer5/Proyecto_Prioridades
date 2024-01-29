@@ -1,9 +1,9 @@
 ﻿@page "/prioridad/Eliminar/{PrioridadId:int}"
-@inject PrioridadesService _prioridadesBLL
+@inject PrioridadesService prioridadesBLL
 
 @rendermode InteractiveServer
 <h3>Detalles de Prioridad</h3>
-<EditForm Model="_prioridad">
+<EditForm Model="prioridad">
     <DataAnnotationsValidator />
 
     <div class="container">
@@ -18,16 +18,16 @@
                 @*Descripción*@
                 <div class="mb-3">
                     <label class="form-label" for="Descripción">Descripción:</label>
-                    <InputText @bind-Value="_prioridad.Descripción" class="form-control" />
-                    <ValidationMessage For="@(() => _prioridad.Descripción)" />
+                    <InputText @bind-Value="prioridad.Descripción" class="form-control" />
+                    <ValidationMessage For="@(() => prioridad.Descripción)" />
                 </div>
                 <p class="text-danger">@_mensaje</p>
 
                 @*Dias compromiso*@
                 <div class="mb-3">
                     <label class="form-label" for="SolicitadoPor">Dias compromiso:</label>
-                    <InputNumber @bind-Value="_prioridad.DiasCompromiso" class="form-control" />
-                    <ValidationMessage For="@(() => _prioridad.DiasCompromiso)" />
+                    <InputNumber @bind-Value="prioridad.DiasCompromiso" class="form-control" />
+                    <ValidationMessage For="@(() => prioridad.DiasCompromiso)" />
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between">
@@ -52,15 +52,15 @@
     protected override async Task OnInitializedAsync()
     {
         // Obtener los detalles de la prioridad utilizando el PrioridadId
-         _prioridad = await _prioridadesBLL.FindByIdAsync(PrioridadId);
+         prioridad = await prioridadesBLL.FindByIdAsync(PrioridadId);
        
     }
 
-    public Prioridades _prioridad = new Prioridades();
+    public Prioridades prioridad = new Prioridades();
     public string _mensaje = string.Empty;
     public async Task Eliminar1()
     {
-        var eliminado = await _prioridadesBLL.Delete(_prioridad.PrioridadId);
+        var eliminado = await prioridadesBLL.Delete(prioridad.PrioridadId);
         if (eliminado)
         {
             _mensaje = "Prioridad eliminada con exito.";
