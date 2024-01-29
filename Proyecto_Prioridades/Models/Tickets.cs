@@ -12,14 +12,17 @@ namespace Proyecto_Prioridades.Models
         public DateTime Fecha { get; set; }
 
         [Required(ErrorMessage ="El ClienteId es Requerido")]
+        [Range(1, int.MaxValue, ErrorMessage = "Selecciona un ClienteId")]
         [ForeignKey("ClienteId")]
-
         public int ClienteId { get; set; }
 
-        [Required(ErrorMessage ="El SistemaId es requerido")]
+        [Required(ErrorMessage ="La PrioridadId es requerida")]
+        [Range(1, int.MaxValue, ErrorMessage = "Selecciona una PrioridadId")]
         [ForeignKey("PrioridadId")]
         public int PrioridadId { get; set; }
 
+        [Required(ErrorMessage = "El SistemaId es requerido")]
+        [Range(1, int.MaxValue, ErrorMessage = "Selecciona un sistemaId")]
         [ForeignKey("SistemaId")]
         public int SistemaId { get; set; }
 

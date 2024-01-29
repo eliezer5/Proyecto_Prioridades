@@ -25,7 +25,7 @@ namespace Proyecto_Prioridades.Services
         {
             if (await validar(cliente))
                 return false;
-            if (cliente.ClienteID == 0)
+            if (cliente.ClienteId == 0)
                 _contexto.Clientes.Add(cliente);
             else
                 _contexto.Update(cliente);
@@ -64,7 +64,7 @@ namespace Proyecto_Prioridades.Services
 
             return await Task.Run(() =>
             {
-                return _contexto.Clientes.FirstOrDefault(p => p.ClienteID == id);
+                return _contexto.Clientes.FirstOrDefault(p => p.ClienteId == id);
             });
         }
     }

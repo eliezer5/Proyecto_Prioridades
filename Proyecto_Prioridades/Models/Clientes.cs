@@ -5,7 +5,7 @@ namespace Proyecto_Prioridades.Models
     public class Clientes
     {
         [Key]
-        public int ClienteID { get; set; }
+        public int ClienteId { get; set; }
 
         [Required(ErrorMessage = "El Nombre es requerido")]
         [RegularExpression(@"^[a-zA-Z]+(?: [a-zA-Z]+)*$", ErrorMessage = "Ingrese un nombre valido")]

@@ -24,7 +24,7 @@
                     @foreach(var cliente in clientes)
                     {
                         <tr>
-                            <td scope="row">@cliente.ClienteID</td>
+                            <td scope="row">@cliente.ClienteId</td>
                             <td scope="row">@cliente.Nombres</td>
                             <td scope="row">@cliente.Telefono</td>
                             <td scope="row">@cliente.Celular</td>
@@ -33,9 +33,9 @@
                             <td scope="row">@cliente.Direccion</td>
 
                         <td>
-                            <a href="cliente/Editar/@cliente.ClienteID" class="btn btn-outline-info bi-pencil-square"></a>
-                            <a href="cliente/Eliminar/@cliente.ClienteID" class="btn btn-outline-danger bi bi-trash-fill"></a>
-                            <a href="cliente/Detalles/@cliente.ClienteID " class=" btn btn-outline-dark bi bi-info-square"></a>
+                            <a href="cliente/Editar/@cliente.ClienteId" class="btn btn-outline-info bi-pencil-square"></a>
+                            <a href="cliente/Eliminar/@cliente.ClienteId" class="btn btn-outline-danger bi bi-trash-fill"></a>
+                            <a href="cliente/Detalles/@cliente.ClienteId" class=" btn btn-outline-dark bi bi-info-square"></a>
                         </td>
                         </tr>
                     }
@@ -49,7 +49,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Expression<Func<Clientes, bool>> criterio = c => c.ClienteID >= 1;
+        Expression<Func<Clientes, bool>> criterio = c => c.ClienteId >= 1;
         clientes = await clienteService.GetClientes(criterio);
     }
 }

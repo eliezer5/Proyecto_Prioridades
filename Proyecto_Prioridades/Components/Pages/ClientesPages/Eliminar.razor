@@ -108,7 +108,7 @@
 
     public async Task Eliminar1()
     {
-        var eliminado = await clientesService.Delete(cliente.ClienteID);
+        var eliminado = await clientesService.Delete(cliente.ClienteId);
         if (eliminado)
         {
             _mensaje = "Cliente Borrado con Éxito";

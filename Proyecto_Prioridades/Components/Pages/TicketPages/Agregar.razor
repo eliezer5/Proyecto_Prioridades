@@ -30,7 +30,7 @@
                     <InputSelect @bind-Value="ticket.ClienteId" class="form-control" >
                         @foreach (var cliente in clientes)
                         {
-                            <option value="@cliente.ClienteID">@cliente.ClienteID</option>
+                            <option value="@cliente.ClienteId">@cliente.ClienteId</option>
                         }
                     </InputSelect>
                     <ValidationMessage For="@(() => ticket.ClienteId)" />
@@ -61,7 +61,7 @@
                         }
                     </InputSelect>
                     <ValidationMessage For="@(() => ticket.SistemaId)" />
-                    <ValidationMessage For="@(() => ticket.PrioridadId)" />
+                  
                 </div>
 
                 @*Nombre Sistema*@
@@ -142,7 +142,7 @@
     protected override async Task OnInitializedAsync()
     {
         Expression<Func<Sistemas, bool>> criterio = c => c.SistemaId >= 1;
-        Expression<Func<Clientes, bool>> criterio2 = c => c.ClienteID >= 1;
+        Expression<Func<Clientes, bool>> criterio2 = c => c.ClienteId >= 1;
         Expression<Func<Prioridades, bool>> criterio3 = c => c.PrioridadId >= 1;
         sistemas = await sistemaService.GetSistemas(criterio);
         clientes = await clienteService.GetClientes(criterio2);

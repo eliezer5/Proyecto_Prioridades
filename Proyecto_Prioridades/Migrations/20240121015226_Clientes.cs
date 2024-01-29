@@ -14,7 +14,7 @@ namespace Proyecto_Prioridades.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    ClienteID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ClienteId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombres = table.Column<string>(type: "TEXT", nullable: false),
                     Telefono = table.Column<string>(type: "TEXT", nullable: true),
@@ -25,7 +25,7 @@ namespace Proyecto_Prioridades.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Clientes", x => x.ClienteID);
+                    table.PrimaryKey("PK_Clientes", x => x.ClienteId);
                 });
         }
 
